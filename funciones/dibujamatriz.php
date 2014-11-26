@@ -5,19 +5,24 @@
  */
 
 function dibujamatriz($matriz){
-    $m1=sizeof($matriz);
-    $m2=sizeof($matriz[0]);
+    $m1=sizeof($matriz)-1;
+    $m2=sizeof($matriz[0])-1;
+//     $m1=5;
+//     $m2=10;
     $a=0;
     $b=0;
-    print ("<table border=1>");
-    for($a=0; $a<=$m2; $a++){
-        print("<tr>");
-        for($b=0; $b<=$m1; $b++){
-           print("<td>");
-           print($matriz[$a]($b));
-           print("</td>");
+//     $c=0;
+    echo ("<table border=1>");
+    for($a=0; $a<=$m1; $a++){
+        echo("<tr>");
+        for($b=0; $b<=$m2; $b++){
+           echo("<td>");
+           echo($matriz[$a][$b]);
+//            echo("$c");
+//            $c++;
+           echo("</td>");
                 }
-         print("</tr>");
+         echo("</tr>");
             }
 }
             
