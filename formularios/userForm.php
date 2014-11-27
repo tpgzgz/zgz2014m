@@ -1,4 +1,11 @@
 <?php
+/**
+ * @param type: text|pasword|textarea|radio|checkbox|select|
+ *              selectmultiple|submit|button
+ * @param filters: stripTrim|stripTags|escape
+ * @param validate: required|maxlength|email|integer|inarray|password             
+ */
+
 $userForm = array(
     'name' =>array(
         'type'=>'text',
