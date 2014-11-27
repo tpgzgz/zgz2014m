@@ -1,13 +1,13 @@
 <?php
 /**
- * @param type: text|pasword|textarea|radio|checkbox|select|
- *              selectmultiple|submit|button
- * @param filters: stripTrim|stripTags|escape
- * @param validate: required|maxlength|email|integer|inarray|password             
+ * @param type: text|password|textarea|radio|checkbox|select|selectmultiple|submit|button|file
+ * @param filters: strpTrim|stripTags|scape
+ * @param validate: required|email|integer|inArray|password
  */
 
 $userForm = array(
-    'name' =>array(
+    
+    'name'=> array(
         'type'=>'text',
         'name'=>'name',
         'value'=>'',
@@ -15,20 +15,68 @@ $userForm = array(
         'hint'=>'',
         'placeholder'=>'',
         'error_message'=>'',
-        'filters'=>array('stripTrim', 'stripTags','escape'),
-        'validation'=>array('required', 'maxlength'=>8)
+        'filters'=>array('stripTrim', 'stripTags', 'escape'),
+        'validation'=>array('required')
     ),
-    'password'=>array(
+    'password'=> array(
         'type'=>'password',
-        'name'=>'name',
+        'name'=>'password',
+        'value'=>'',
         'label'=>'Password',
         'hint'=>'',
         'placeholder'=>'',
         'error_message'=>'',
-        'filters'=>array(),
-        'validation'=>array()
+        'filters'=>array('stripTrim', 'stripTags'),
+        'validation'=>array('required', 'password')
     ),
-    'pets'=>array(
+    
+    'email'=> array(
+        'type'=>'text',
+        'name'=>'email',
+        'value'=>'',
+        'label'=>'Email',
+        'hint'=>'',
+        'placeholder'=>'',
+        'error_message'=>'',
+        'filters'=>array('stripTrim', 'stripTags', 'escape'),
+        'validation'=>array('required')
+    ),
+    'description'=> array(
+        'type'=>'textarea',
+        'name'=>'description',
+        'value'=>'',
+        'label'=>'Descripción',
+        'hint'=>'Sobre tí...',
+        'placeholder'=>'',
+        'error_message'=>'',
+        'filters'=>array(),
+        'validation'=>array('')
+    ),
+    'gender'=> array(
+        'type'=>'radio',
+        'name'=>'gender',
+        'options'=>array('female'=>'Mujer', 'male'=>'Hombre', 'others'=>'Otro'),
+        'value'=>array('others'),
+        'label'=>'Sexo',
+        'hint'=>'',
+        'placeholder'=>'',
+        'error_message'=>'',
+        'filters'=>array(''),
+        'validation'=>array('required', 'inArray')
+    ),
+    'city'=> array(
+        'type'=>'select',
+        'name'=>'city',
+        'options'=>array('zaragoza'=>'Zaragoza', 'madrid'=>'Madrid', 'barcelona'=>'Barcelona'),
+        'value'=>array('zaragoza'),
+        'label'=>'Ciudad',
+        'hint'=>'',
+        'placeholder'=>'',
+        'error_message'=>'',
+        'filters'=>array(''),
+        'validation'=>array('required', 'inArray')
+    ),
+    'pets'=> array(
         'type'=>'checkbox',
         'name'=>'pets',
         'options'=>array('cat'=>'Gato', 'dog'=>'Perro'),
@@ -38,8 +86,39 @@ $userForm = array(
         'placeholder'=>'',
         'error_message'=>'',
         'filters'=>array(),
-        'validation'=>array()
+        'validation'=>array('inArray')
     ),
-    
-    
+    'languages'=> array(
+        'type'=>'selectmultiple',
+        'name'=>'languages',
+        'options'=>array('english'=>'Inglés', 'french'=>'Francés', 'german'=>'Alemán'),
+        'value'=>array('english'),
+        'label'=>'Idiomas',
+        'hint'=>'',
+        'placeholder'=>'',
+        'error_message'=>'',
+        'filters'=>array(''),
+        'validation'=>array('inArray')
+    ),
+    'photo'=> array(
+        'type'=>'file',
+        'name'=>'photo',
+        'value'=>'',
+        'label'=>'Foto',
+        'hint'=>'',
+        'placeholder'=>'',
+        'error_message'=>'',
+        'filters'=>array(''),
+        'validation'=>array('')
+    ),
+    'submit'=> array(
+        'type'=>'submit',
+        'name'=>'submit',
+        'label'=>'Enviar',
+        'hint'=>'',
+        'placeholder'=>'',
+        'error_message'=>'',
+        'filters'=>array('submit'),
+        'validation'=>array('')
+    ),
 );
