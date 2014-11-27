@@ -1,12 +1,22 @@
 <?php
 /**
  * @param type: text|password|textarea|radio|checkbox|select|selectmultiple|submit|button|file
- * @param filters: strpTrim|stripTags|scape
+ * @param filters: stripTrim|stripTags|scape
  * @param validate: required|email|integer|inArray|password
  */
 
 $userForm = array(
-    
+    'lastname'=> array(
+        'type'=>'text',
+        'name'=>'lastname',
+        'value'=>'',
+        'label'=>'Apellidos',
+        'hint'=>'',
+        'placeholder'=>'',
+        'error_message'=>'',
+        'filters'=>array('stripTrim', 'stripTags', 'escape'),
+        'validation'=>array()
+    ),
     'name'=> array(
         'type'=>'text',
         'name'=>'name',
