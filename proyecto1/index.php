@@ -54,8 +54,24 @@ echo "</pre>";
 
 $usuario = array('name'=>'Agustin',
                  'edad'=>10,
-                 'tamano'=>10.9
+                 'tamano'=>10.9,
+                 FALSE => 'esto',
+                 10 => "mas",
+                 1 => "el uno",
+                 "el dos",
+                 5.6 => "esto que",
+                 7,6 => "flotando",
+                 "la coma",
+                 array("rojo", "verde"),
+                 "14.3"=>'caca'
+                      
 );
+
+foreach ($usuario as $key => $value)
+{
+    echo $key.": ".$value;
+    echo "<br/>";
+}
 
 echo "<pre>";
 print_r($usuario);
