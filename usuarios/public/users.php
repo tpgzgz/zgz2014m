@@ -39,6 +39,19 @@ switch ($action)
                 //Insertar en el repositorio
                 move_uploaded_file($_FILES['photo']['tmp_name'], 
                                    $_SERVER['DOCUMENT_ROOT']."/".$_FILES['photo']['name']);
+                
+                foreach($filter as $key => $value)
+                {
+                    if(is_array($value))
+                        $value=implode(',', $value);
+                    $data[$key]=$value;
+                }
+                $data[]=$_FILES['photo']['name'];
+                $data = implode('|', $data);
+                
+                file_put_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt", 
+                                  $data."\n", 
+                                  FILE_APPEND);
             }
             echo "<pre>Valid: ";
             print_r($valid);
@@ -57,6 +70,13 @@ switch ($action)
     break;
     case 'select':
         echo "Esto es el Select";
+        
+        echo "<table>";
+        echo "<tr>";
+        echo "<td>DATA</td>";
+        echo "</tr>";
+        
+        echo "</table>";
     break;
     case 'delete':
         echo "Esto es el Delete";
