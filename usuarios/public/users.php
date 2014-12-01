@@ -106,9 +106,10 @@ switch ($action)
                         print_r($usuarios);
                         echo "</pre>";
                         
+                        $usuarios = implode("\n", $usuarios);
                         // Escribir todo el array al fichero
                         file_put_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt",
-                        $usuarios."\n");
+                        $usuarios);
                         // Ir al select
                         header("Location: /users.php?action=select");
                         
@@ -189,6 +190,20 @@ switch ($action)
     break;
     case 'delete':
         echo "Esto es el Delete";
+        
+        // Si POST
+            // Leer los datos del usuario
+                // Leer todo el fichero en un string
+                // Separar por saltos de linea
+            // Localizar el usuario por ID
+            // Eliminar el usuario ID del array
+            // Escribir el array al fichero de texto
+                // Juntarlo por saltos de linea
+                // Escribir el string en el fichero    
+        
+        // SI NO POST
+            // Preguntar Si/No VIA PHP
+                // Via POST porque modifica la "Maquina de Estados"
     break;
 }
 
