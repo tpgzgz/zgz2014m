@@ -6,6 +6,17 @@
  */
 
 $userForm = array(
+    'id'=> array(
+        'type'=>'hidden',
+        'name'=>'id',
+        'value'=>'',
+        'label'=>'',
+        'hint'=>'',
+        'placeholder'=>'',
+        'error_message'=>'',
+        'filters'=>array('stripTrim', 'stripTags', 'escape'),
+        'validation'=>array()
+    ),
     'lastname'=> array(
         'type'=>'text',
         'name'=>'lastname',

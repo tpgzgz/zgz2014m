@@ -4,8 +4,22 @@
  * Dibuja el formulario
  * @param array $form
  */
-function renderForm($form, $action, $method='post', $upload = FALSE) 
+// 
+
+function renderForm($form, $action, $values, $method='post', 
+                    $upload = FALSE) 
 {
+    
+    // Lectura de los valores 
+    if(isset($values))
+        foreach ($form as $key => $field)
+        {
+            if(isset($values[$key]))
+                $form[$key]['value']=$values[$key];            
+        }
+    
+    
+    
     $result = '<form method="'.$method.'" 
                      action="'.$action.'"';
         if($upload)
@@ -24,6 +38,7 @@ function renderForm($form, $action, $method='post', $upload = FALSE)
             case 'password':
             case 'button':
             case 'submit':
+            case 'hidden':
             case 'file':
                 $result .= '<input type="' . $field['type'] . '"' . renderOpts($field) . '/>';
             break;
@@ -36,7 +51,7 @@ function renderForm($form, $action, $method='post', $upload = FALSE)
                 foreach ($field['options'] as $key => $value)
                 {
                     $result .= '<input type="' . $field['type'] . '" name="' . $field['name'] . '" value="' . $key . '"';
-                    if (in_array($key, $field['value'])) $result .= ' checked';
+                    if($key==$field['value']) $result .= ' checked';
                     $result .= "/>$value";
                 }
             break;
@@ -55,7 +70,7 @@ function renderForm($form, $action, $method='post', $upload = FALSE)
                 foreach ($field['options'] as $key => $value)
                 {
                     $result .= '<option value="' . $key . '"';
-                    if (in_array($key, $field['value'])) $result .= ' selected';
+                    if($key==$field['value']) $result .= ' selected';
                     $result .= ">$value</option>";
                 }
                 $result .= '</select>';
