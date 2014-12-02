@@ -1,23 +1,5 @@
 <?php
 
-echo "<pre>Post: ";
-print_r($_POST);
-echo "</pre>";
-
-echo "<pre>Get: ";
-print_r($_GET);
-echo "</pre>";
-
-echo "<pre>Files: ";
-print_r($_FILES);
-echo "</pre>";
-
-if(isset($_GET['action']))
-    $action=$_GET['action'];
-else
-    $action = 'select';
-
-
 include_once '../modules/Core/src/Forms/models/validateForm.php';
 include_once '../modules/Core/src/Forms/models/filterForm.php';
 include_once '../modules/Core/src/Forms/models/renderForm.php';
@@ -29,7 +11,9 @@ include_once '../modules/Application/src/Application/models/updateUser.php';
 include_once '../modules/Application/src/Application/models/deleteUser.php';
 include_once '../modules/Application/src/Application/models/hydrateUser.php';
 
-switch ($action)
+$validActions = array ('insert', 'update', 'delete', 'select');
+
+switch ($request['action'])
 {
     case 'insert':        
         if($_POST)
@@ -76,6 +60,7 @@ switch ($action)
                 include('../modules/Application/src/Application/views/users/update.phtml');
             }  
     break;
+    default:
     case 'select':
         $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
         $data = explode("\n", $data);
