@@ -23,13 +23,13 @@ function validateForm($formDefinition, $formPost)
                          $valid = false;
                         $error[]=$validation;
                      }
-                     break;
+                 break;
                  case 'password':
                      if(strlen($formPost[$key])<8 || !preg_match('`[A-Z]`',$formPost[$key])){
                          $valid = false;
                         $error[]=$validation;
                      }
-                     break;
+                 break;
                 
             }
         }               

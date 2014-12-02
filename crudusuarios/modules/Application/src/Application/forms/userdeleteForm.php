@@ -48,7 +48,7 @@ $userdeleteForm = array(
         'placeholder'=>'',
         'error_message'=>'',
         'filters'=>array('stripTrim', 'stripTags', 'escape'),
-        'validation'=>array('required')
+        'validation'=>array()
     ),
     'si'=> array(
         'type'=>'submit',
@@ -77,6 +77,6 @@ $userdeleteForm = array(
         'hint'=>'',
         'placeholder'=>'',
         'error_message'=>'',
-        'validation'=>array('csrf')
+        'validation'=>array()
     ),
 );

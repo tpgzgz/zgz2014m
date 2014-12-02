@@ -13,8 +13,10 @@
  * @return number int number of bytes | FALSE
  */
 
-function write2txt($filter, $imagename, $filename, $append = FALSE)
+function createUser($filter, $imagename)
 {
+    $filename = 'usuarios.txt';
+    
     foreach($filter as $key => $value)
     {
         if(is_array($value))
@@ -23,12 +25,10 @@ function write2txt($filter, $imagename, $filename, $append = FALSE)
     }
     $data[]=$imagename;
     $data = implode('|', $data);
-    if($append)
+    
         return file_put_contents($_SERVER['DOCUMENT_ROOT']."/".$filename,
                       $data."\n",
                       FILE_APPEND);
-    else 
-        return file_put_contents($_SERVER['DOCUMENT_ROOT']."/".$filename,
-            $data."\n");
+    
      
 }
