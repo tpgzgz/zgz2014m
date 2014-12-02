@@ -1,0 +1,10 @@
+<?php 
+
+include_once 'userForm.php';
+                include_once 'renderForm.php';
+                echo "<img width=\"100px\" src=\"".$values['photo']."\"/>";
+                echo renderForm($userForm,
+                    "users.php?action=update",
+                    $values,
+                    'post',
+                    TRUE);

@@ -1,0 +1,12 @@
+<?php 
+
+echo "<pre>Values: ";
+print_r($values);
+echo "</pre>";
+
+include_once 'userdeleteForm.php';
+include_once 'renderForm.php';
+echo renderForm($userdeleteForm,
+    "http://usuarios.local/users.php?action=delete",
+    $values,
+    'post');

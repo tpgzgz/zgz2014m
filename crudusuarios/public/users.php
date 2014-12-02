@@ -4,14 +4,9 @@ echo "<pre>Post: ";
 print_r($_POST);
 echo "</pre>";
 
-
 echo "<pre>Get: ";
 print_r($_GET);
 echo "</pre>";
-
-// echo "<pre>SERVER: ";
-// print_r($_SERVER);
-// echo "</pre>";
 
 echo "<pre>Files: ";
 print_r($_FILES);
@@ -24,59 +19,30 @@ else
 
 switch ($action)
 {
-    case 'insert':
-        echo "Esto es el Insert";         
+    case 'insert':        
         if($_POST)
         {
-            include_once 'validateForm.php';
-            include_once 'filterForm.php';
-            include_once 'userForm.php';
-            $filter = filterForm($userForm, $_POST);
-            echo "<pre>Filter: ";
-            print_r($filter);
-            echo "</pre>";
-            
+            include_once '../modules/Core/src/Forms/models/validateForm.php';
+            include_once '../modules/Core/src/Forms/models/filterForm.php';
+            include_once '../modules/Application/src/Application/forms/userForm.php';
+            include_once '../modules/Application/src/Application/models/write2txt.php';
+            $filter = filterForm($userForm, $_POST);           
             $valid = validateForm($userForm, $filter);
             if($valid['valid'])
             {
                 //Insertar en el repositorio
                 move_uploaded_file($_FILES['photo']['tmp_name'], 
-                                   $_SERVER['DOCUMENT_ROOT']."/".$_FILES['photo']['name']);
-                
-                foreach($filter as $key => $value)
-                {
-                    if(is_array($value))
-                        $value=implode(',', $value);
-                    $data[$key]=$value;
-                }
-                $data[]=$_FILES['photo']['name'];
-                $data = implode('|', $data);
-                
-                file_put_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt", 
-                                  $data."\n", 
-                                  FILE_APPEND);
-                
+                                   $_SERVER['DOCUMENT_ROOT']."/".$_FILES['photo']['name']);                
+                write2txt($filter, $_FILES['photo']['name'] ,'usuarios.txt', TRUE);               
                 header("Location: /users.php?action=select");
-            }
-            echo "<pre>Valid: ";
-            print_r($valid);
-            echo "</pre>";
-            
+            }            
         }   
         else
         {
-            include_once 'userForm.php';
-            include_once 'renderForm.php';
-            echo renderForm($userForm, 
-                            "users.php?action=insert",
-                            null,
-                            'post', 
-                            TRUE);
+            include('../modules/Application/src/Application/views/users/insert.phtml');
         }  
     break;
-    case 'update':
-        echo "Esto es el Update";
-       
+    case 'update':      
             // Si POST
             if($_POST)
             {
@@ -103,22 +69,12 @@ switch ($action)
                             $data = implode('|', $data);
                         }
                         $usuarios[$_POST['id']] = $data;
-                    
-                        
-                        echo "<pre>Usuarios: ";
-                        print_r($usuarios);
-                        echo "</pre>";
-                        
                         $usuarios = implode("\n", $usuarios);
                         // Escribir todo el array al fichero
                         file_put_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt",
                         $usuarios);
                         // Ir al select
-                        header("Location: /users.php?action=select");
-                        
-                    
-                    
-                    
+                        header("Location: /users.php?action=select"); 
             }
             // Si no POST
             // Cargar el formulario con datos
@@ -130,15 +86,8 @@ switch ($action)
                 // Dividir por saltos de linea
                 $data = explode("\n", $data);
                 // Leer la fila ID
-                $usuario = $data[$_GET['id']];
-                
+                $usuario = $data[$_GET['id']];                
                 $usuario = explode("|", $usuario);
-                
-                
-                echo "<pre>Usuario: ";
-                print_r($usuario);
-                echo "</pre>";
-                
                 $values = array ('id'=>$_GET['id'],
                     'lastname'=>$usuario[1],
                     'name'=>$usuario[2],
@@ -150,50 +99,18 @@ switch ($action)
                     'pets'=>explode(',',$usuario[8]),
                     //'languages'=>(strpos($usuario[8],',')!==FALSE)?explode(',',$usuario[8]):$usuario[8],
                     'languages'=>explode(',',$usuario[9]),
-                    'photo'=>$usuario[11]);
-                
-                echo "<pre>Values: ";
-                print_r($values);
-                echo "</pre>";
+                    'photo'=>$usuario[11]);           
+
                 // Cargar el formulario con datos
-                include_once 'userForm.php';
-                include_once 'renderForm.php';
-                echo "<img width=\"100px\" src=\"".$values['photo']."\"/>";
-                echo renderForm($userForm,
-                    "users.php?action=update",
-                    $values,
-                    'post',
-                    TRUE);
-            }        
-       
-        
+                include('../modules/Application/src/Application/views/users/update.phtml');
+            }  
     break;
     case 'select':
         $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
         $data = explode("\n", $data);
-        echo "<a href=\"users.php?action=insert\">Insert</a>";
-        
-        echo "<table border=1>";
-        foreach ($data as $key => $fila)
-        {
-            echo "<tr>";
-            $columna = explode("|", $fila);
-            foreach ($columna as $value)
-            {
-                echo "<td>".$value."</td>";
-            } 
-            
-            echo "<td>";
-            echo "<a href=\"users.php?action=update&id=".$key."\">Update</a> | ";
-            echo "<a href=\"users.php?action=delete&id=".$key."\">Delete</a>";
-            echo "</td>";
-            echo "</tr>";
-        }
-        
-        echo "</table>";
+        include ("../modules/Application/src/Application/views/users/select.phtml");
     break;
-    case 'delete':
-        echo "Esto es el Delete";
+    case 'delete':       
         if($_POST)
         {
             include_once 'validateForm.php';
@@ -209,33 +126,18 @@ switch ($action)
                 $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
                 // Separar por saltos de linea
                 $data = explode("\n", $data);
-                echo "<pre>Data: ";
-                print_r($data);
-                echo "</pre>";
-                
                 // Localizar el usuario por ID
                 // Eliminar el usuario ID del array
                 unset($data[$_POST['id']]);
                 // Juntarlo por saltos de linea
                 $usuarios = implode("\n", $data);
-                // Escribir todo el array al fichero
-                
+                // Escribir todo el array al fichero                
                 file_put_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt",
                 $usuarios);
             }
-            
-            
-            
-                
                 // Ir al select
-                header("Location: /users.php?action=select");
-            
-            
-            
-            // Escribir el string en el fichero
-            
-        }
-        
+                header("Location: /users.php?action=select");            
+        }        
         else 
         {
             // Leer los datos del usuario por ID
@@ -244,17 +146,9 @@ switch ($action)
                 // Dividir por saltos de linea
                 $data = explode("\n", $data);
                 // Leer la fila ID
-                $usuario = $data[$_GET['id']];
-                
-                $usuario = explode("|", $usuario);
-                
-                
-                echo "<pre>Usuario: ";
-                print_r($usuario);
-                echo "</pre>";
+                $usuario = $data[$_GET['id']];                
+                $usuario = explode("|", $usuario);                
                 $private_key='962d52aca6a17be6185267ef085de20e4ae3fc637944a01c4ea38057dc4cc7ab';
-                
-                
                 $values = array ('id'=>$_GET['id'],
                     'lastname'=>$usuario[1],
                     'name'=>$usuario[2],
@@ -268,30 +162,12 @@ switch ($action)
                     'languages'=>explode(',',$usuario[9]),
                     'photo'=>$usuario[11],
                     'token'=>hash('sha256', $_SERVER['SERVER_ADDR'].$private_key)
-                );
-                    
-                
-                echo "<pre>Values: ";
-                print_r($values);
-                echo "</pre>";
-                
-                include_once 'userdeleteForm.php';
-                include_once 'renderForm.php';
-                echo renderForm($userdeleteForm,
-                "http://usuarios.local/users.php?action=delete",
-                $values,
-                'post');
+                );                    
+                include('../modules/Application/src/Application/views/users/delete.phtml');
         }
         // SI NO POST
             // Preguntar Si/No VIA PHP
                 // Via POST porque modifica la "Maquina de Estados"
     break;
 }
-
-
-
-
-
-
-
 

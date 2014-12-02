@@ -1,0 +1,8 @@
+<?php 
+include_once 'userForm.php';
+include_once 'renderForm.php';
+echo renderForm($userForm,
+    "users.php?action=insert",
+    null,
+    'post',
+    TRUE);
