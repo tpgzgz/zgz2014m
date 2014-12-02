@@ -32,7 +32,7 @@ switch ($action)
             {
                 //Insertar en el repositorio
                 move_uploaded_file($_FILES['photo']['tmp_name'], 
-                                   $_SERVER['DOCUMENT_ROOT']."/".$_FILES['photo']['name']);                
+                                   $_SERVER['DOCUMENT_ROOT']."/uploads/".$_FILES['photo']['name']);                
                 write2txt($filter, $_FILES['photo']['name'] ,'usuarios.txt', TRUE);               
                 header("Location: /users.php?action=select");
             }            
@@ -79,28 +79,10 @@ switch ($action)
             // Si no POST
             // Cargar el formulario con datos
             else 
-            {
-                // Leer los datos del usuario por ID
-                // Leer todos los datos
-                $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
-                // Dividir por saltos de linea
-                $data = explode("\n", $data);
-                // Leer la fila ID
-                $usuario = $data[$_GET['id']];                
-                $usuario = explode("|", $usuario);
-                $values = array ('id'=>$_GET['id'],
-                    'lastname'=>$usuario[1],
-                    'name'=>$usuario[2],
-                    'password'=>$usuario[3],
-                    'email'=>$usuario[4],
-                    'description'=>$usuario[5],
-                    'gender'=>$usuario[6],
-                    'city'=>$usuario[7],
-                    'pets'=>explode(',',$usuario[8]),
-                    //'languages'=>(strpos($usuario[8],',')!==FALSE)?explode(',',$usuario[8]):$usuario[8],
-                    'languages'=>explode(',',$usuario[9]),
-                    'photo'=>$usuario[11]);           
-
+            {               
+                $userData=fetchUser($_GET['id']); 
+                $userData[0]=$_GET['id'];
+                $values = hydrateUser($userData);               
                 // Cargar el formulario con datos
                 include('../modules/Application/src/Application/views/users/update.phtml');
             }  
