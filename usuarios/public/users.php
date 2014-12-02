@@ -9,6 +9,9 @@ echo "<pre>Get: ";
 print_r($_GET);
 echo "</pre>";
 
+// echo "<pre>SERVER: ";
+// print_r($_SERVER);
+// echo "</pre>";
 
 echo "<pre>Files: ";
 print_r($_FILES);
@@ -190,17 +193,94 @@ switch ($action)
     break;
     case 'delete':
         echo "Esto es el Delete";
-        
-        // Si POST
-            // Leer los datos del usuario
+        if($_POST)
+        {
+            include_once 'validateForm.php';
+            include_once 'filterForm.php';
+            include_once 'userdeleteForm.php';
+            // Si POST
+            $filter = filterForm($userForm, $_POST);
+            $valid = validateForm($userForm, $filter);
+            if($valid['valid'] && $_POST['borrar']=='Si')
+            {
+                // Leer los datos del usuario
                 // Leer todo el fichero en un string
+                $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
                 // Separar por saltos de linea
-            // Localizar el usuario por ID
-            // Eliminar el usuario ID del array
-            // Escribir el array al fichero de texto
+                $data = explode("\n", $data);
+                echo "<pre>Data: ";
+                print_r($data);
+                echo "</pre>";
+                
+                // Localizar el usuario por ID
+                // Eliminar el usuario ID del array
+                unset($data[$_POST['id']]);
                 // Juntarlo por saltos de linea
-                // Escribir el string en el fichero    
+                $usuarios = implode("\n", $data);
+                // Escribir todo el array al fichero
+                
+                file_put_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt",
+                $usuarios);
+            }
+            
+            
+            
+                
+                // Ir al select
+                header("Location: /users.php?action=select");
+            
+            
+            
+            // Escribir el string en el fichero
+            
+        }
         
+        else 
+        {
+            // Leer los datos del usuario por ID
+                // Leer todos los datos
+                $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
+                // Dividir por saltos de linea
+                $data = explode("\n", $data);
+                // Leer la fila ID
+                $usuario = $data[$_GET['id']];
+                
+                $usuario = explode("|", $usuario);
+                
+                
+                echo "<pre>Usuario: ";
+                print_r($usuario);
+                echo "</pre>";
+                $private_key='962d52aca6a17be6185267ef085de20e4ae3fc637944a01c4ea38057dc4cc7ab';
+                
+                
+                $values = array ('id'=>$_GET['id'],
+                    'lastname'=>$usuario[1],
+                    'name'=>$usuario[2],
+                    'password'=>$usuario[3],
+                    'email'=>$usuario[4],
+                    'description'=>$usuario[5],
+                    'gender'=>$usuario[6],
+                    'city'=>$usuario[7],
+                    'pets'=>explode(',',$usuario[8]),
+                    //'languages'=>(strpos($usuario[8],',')!==FALSE)?explode(',',$usuario[8]):$usuario[8],
+                    'languages'=>explode(',',$usuario[9]),
+                    'photo'=>$usuario[11],
+                    'token'=>hash('sha256', $_SERVER['SERVER_ADDR'].$private_key)
+                );
+                    
+                
+                echo "<pre>Values: ";
+                print_r($values);
+                echo "</pre>";
+                
+                include_once 'userdeleteForm.php';
+                include_once 'renderForm.php';
+            echo renderForm($userdeleteForm,
+                "http://usuarios.local/users.php?action=delete",
+                $values,
+                'post');
+        }
         // SI NO POST
             // Preguntar Si/No VIA PHP
                 // Via POST porque modifica la "Maquina de Estados"

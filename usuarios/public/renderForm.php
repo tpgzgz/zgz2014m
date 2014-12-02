@@ -34,6 +34,9 @@ function renderForm($form, $action, $values, $method='post',
         
         switch ($field['type']) 
         {
+            case 'html':
+                $result .= $field['value'];
+            break;
             case 'text':
             case 'password':
             case 'button':
