@@ -12,10 +12,13 @@ echo "<pre>Files: ";
 print_r($_FILES);
 echo "</pre>";
 
+
 $data = explode('/', $_SERVER['REQUEST_URI']);
+
 echo "<pre>".$_SERVER['REQUEST_URI'];
 print_r($data);
 echo "</pre>";
+
 
 include_once '../modules/Core/src/Router/models/parseUrl.php';
 
@@ -33,6 +36,7 @@ switch($request['controller'])
     break;
     case 'error':
         include_once '../modules/Application/src/Application/controllers/error.php';
+
     break;
 }
 

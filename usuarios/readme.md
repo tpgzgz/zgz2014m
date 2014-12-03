@@ -1,6 +1,13 @@
-#Usuarios
 
-##Contenido de las carpetas
+# Usuarios
 
--config
-Archivos de configuracion
+Este es un modulo creado en php para el control
+basico de usuarios.
+
+## Contenido de las carpetas
+
+- config
+ Archivos de configuracion
+- docs
+ documentacion del proyecto
+
