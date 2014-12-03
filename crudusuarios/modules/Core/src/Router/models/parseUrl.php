@@ -51,7 +51,7 @@ function parseURL()
                 if (count($aux_params) % 2 != 0) {
                     // wrong params
                     $controller = 'error';
-                    $action = 'e405';
+                    $action = '405';
                     $params = [];
                 } else {
                     $params = [];
@@ -63,14 +63,14 @@ function parseURL()
             } else {
                 // invalid action
                 $controller = 'error';
-                $action = 'e404';
+                $action = '404';
                 $params = [];
             }
         
         } else {
             // controller does not exist
             $controller = "error";
-            $action = "e404";
+            $action = "404";
             $params = [];
         }
     }
