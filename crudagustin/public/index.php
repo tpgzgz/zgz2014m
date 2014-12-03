@@ -13,27 +13,31 @@ print_r($_FILES);
 echo "</pre>";
 
 
+
+
 $data = explode('/', $_SERVER['REQUEST_URI']);
 
 echo "<pre>".$_SERVER['REQUEST_URI'];
 print_r($data);
 echo "</pre>";
 
-include_once '../modules/Core/src/Router/models/parseUrl.php';
+// include_once '../modules/Core/src/Router/models/parseUrl.php';
 
-$request = parseURL($_SERVER['REQUEST_URI']);
+// $request = parseURL();
 
-echo "<pre> Request:" ;
-print_r($request);
-echo "</pre>";
+$request = array ('controller'=>'users', 
+              'action'=>'select'
+);
 
 switch($request['controller'])
 {
-    default:
     case 'users':
         include_once '../modules/Application/src/Application/controllers/users.php';
     break;
     case 'error':
-        include_once '../modules/Application/src/Application/controllers/error.php';
+        
     break;
 }
+
+
+

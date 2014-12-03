@@ -1,22 +1,16 @@
-<?php 
-
-echo "<a href=\"users.php?action=insert\">Insert</a>";
-
-echo "<table border=1>";
-foreach ($data as $key => $fila)
-{
-    echo "<tr>";
-    $columna = explode("|", $fila);
-    foreach ($columna as $value)
-    {
-        echo "<td>".$value."</td>";
-    }
-
-    echo "<td>";
-    echo "<a href=\"users.php?action=update&id=".$key."\">Update</a> | ";
-    echo "<a href=\"users.php?action=delete&id=".$key."\">Delete</a>";
-    echo "</td>";
-    echo "</tr>";
-}
-
-echo "</table>";
+<a href="/users/insert">Insert</a>
+<table border=1>
+<?php foreach ($data as $key => $fila):?>
+    <tr>
+        <?php 
+        $columna = explode("|", $fila);
+        foreach ($columna as $value):?>
+            <td><?=$value;?></td>
+        <?php endforeach;?>
+        <td>
+            <a href="/users/update/id/<?=$key;?>">Update</a> | 
+            <a href="/users/delete/id/<?=$key;?>">Delete</a>
+        </td>
+   </tr>
+<?php endforeach;?>
+</table>
