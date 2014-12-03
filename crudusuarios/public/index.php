@@ -31,9 +31,13 @@ switch($request['controller'])
 {
     default:
     case 'users':
+        ob_star();
         include_once '../modules/Application/src/Application/controllers/users.php';
+        
     break;
     case 'error':
         include_once '../modules/Application/src/Application/controllers/error.php';
     break;
 }
+
+include_once '..';
