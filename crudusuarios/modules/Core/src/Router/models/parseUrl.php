@@ -24,8 +24,7 @@
 
 function parseURL($_SERVER['REQUEST_URI'])
 {
-
-    return array('controller'=>
+    array('controller'=>
         'action'=>
         'params'=>array(
             'param1'=>'values1',
@@ -33,5 +32,6 @@ function parseURL($_SERVER['REQUEST_URI'])
             ...
             ...
         )
-    )
+    );
+    return $request;
 }
