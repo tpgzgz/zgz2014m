@@ -29,7 +29,7 @@ switch ($request['action'])
                 move_uploaded_file($_FILES['photo']['tmp_name'], 
                                    $_SERVER['DOCUMENT_ROOT']."/uploads/".$_FILES['photo']['name']);                
                 createUser($filter, $_FILES['photo']['name']);               
-                header("Location: /users.php?action=select");
+                header("Location: /users/select");
             }            
         }   
         else
@@ -50,14 +50,14 @@ switch ($request['action'])
                         updateUser($data);
                     }                        
                     // Ir al select
-                    header("Location: /users.php?action=select"); 
+                    header("Location: /users/select"); 
             }
             // Si no POST
             // Cargar el formulario con datos
             else 
             {               
-                $userData=fetchUser($_GET['id']); 
-                $userData[0]=$_GET['id'];
+                $userData=fetchUser($request['params']['id']); 
+                $userData[0]=$request['params']['id'];
                 $values = hydrateUser($userData);               
                 // Cargar el formulario con datos
                 include('../modules/Application/src/Application/views/users/update.phtml');
@@ -77,12 +77,12 @@ switch ($request['action'])
             if($valid['valid'] && $_POST['borrar']=='Si')
                 deleteUser($filter['id']);            
            
-            header("Location: /users.php?action=select");            
+            header("Location: /users/select");            
         }        
         else 
         {
-            $userData=fetchUser($_GET['id']);
-            $userData[0]=$_GET['id'];
+            $userData=fetchUser($request['params']['id']);
+            $userData[0]=$request['params']['id'];
             $values = hydrateUser($userData);
             $private_key='962d52aca6a17be6185267ef085de20e4ae3fc637944a01c4ea38057dc4cc7ab';
             $values['token']=hash('sha256', $_SERVER['SERVER_ADDR'].$private_key);
