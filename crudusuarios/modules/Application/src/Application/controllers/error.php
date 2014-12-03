@@ -2,6 +2,9 @@
 
 switch ($request['action'])
 {
+    case '400':
+        echo "Error 400: Increíble,ble: Acción inválida.";
+    break;
     case '404':
         echo "Error 404: Por más que busco, no encuentro.";
     break;
