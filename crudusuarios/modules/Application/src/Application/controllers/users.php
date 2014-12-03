@@ -11,6 +11,9 @@ include_once '../modules/Application/src/Application/models/updateUser.php';
 include_once '../modules/Application/src/Application/models/deleteUser.php';
 include_once '../modules/Application/src/Application/models/hydrateUser.php';
 
+
+
+
 $validActions = array ('insert', 'update', 'delete', 'select');
 
 switch ($request['action'])
