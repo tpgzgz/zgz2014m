@@ -1,5 +1,7 @@
 <?php
 
+
+
 echo "<pre>Post: ";
 print_r($_POST);
 echo "</pre>";
@@ -158,6 +160,7 @@ switch ($action)
                 // Cargar el formulario con datos
                 include_once 'userForm.php';
                 include_once 'renderForm.php';
+
                 echo "<img width=\"100px\" src=\"".$values['photo']."\"/>";
                 echo renderForm($userForm,
                     "users.php?action=update",
@@ -169,8 +172,10 @@ switch ($action)
         
     break;
     case 'select':
+
         $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
         $data = explode("\n", $data);
+
         echo "<a href=\"users.php?action=insert\">Insert</a>";
         
         echo "<table border=1>";
@@ -275,12 +280,14 @@ switch ($action)
                 print_r($values);
                 echo "</pre>";
                 
+
                 include_once 'userdeleteForm.php';
                 include_once 'renderForm.php';
                 echo renderForm($userdeleteForm,
                 "http://usuarios.local/users.php?action=delete",
                 $values,
                 'post');
+
         }
         // SI NO POST
             // Preguntar Si/No VIA PHP

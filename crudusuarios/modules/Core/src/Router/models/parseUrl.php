@@ -1,7 +1,6 @@
 <?php
 
 
-
 /**
  * URLS validas
  *
@@ -22,16 +21,60 @@
  */
 
 
-function parseURL($_SERVER['REQUEST_URI'])
+function parseURL($requestUri)
 {
-    array('controller'=>
-        'action'=>
-        'params'=>array(
-            'param1'=>'values1',
-            'param2'=>'values2',
-            ...
-            ...
-        )
-    );
-    return $request;
+    $request = array(
+        'controller'=>'',
+        'action'=>'',
+        'params'=>array()
+        );
+    
+    $url = explode("/", $requestUri);
+    
+    foreach($url as $key => $param)
+    {
+        switch($param)
+        {
+            case '': 
+                if($key != 0 && count($url) > 2)
+                {
+                    $request['controller'] = 'error';
+                    $request['action'] = '405';
+                }
+            break;
+            case 'users':
+                if($key == 1)   
+                    $request['controller'] = $param;
+                else
+                {
+                    $request['controller'] = 'error';
+                    $request['action'] = '404';
+                }
+            break;
+            case 'select':
+                if($key == 2)   
+                    $request['action'] = $param;
+                else
+                {
+                    $request['controller'] = 'error';
+                    $request['action'] = '404';
+                }
+            break;
+            default:
+                echo count($url)%2;
+                if($key > 2 && (count($url) % 2 != 0))
+                {
+                    if( $key % 2 != 0)
+                        $request['params'][$param] = $url[$key +1];
+                }
+                else
+                {
+                    $request['controller'] = 'error';
+                    $request['action'] = '405';
+                }
+                    
+            break;
+        }
+    }
+    return $request;    
 }
