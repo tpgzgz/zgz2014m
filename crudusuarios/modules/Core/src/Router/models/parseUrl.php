@@ -25,13 +25,24 @@
 function parseURL($uri)
 {
     if(isset($uri[0]))
-        $request['controller']=$uri[0];
-    
-    if(isset($uri[1]))
-        $request['action']=$uri[1];
-    for($i=2; i<count($uri); $i=$i+2)
     {
-        $request["$uri[i]"] = $uri[i+1];
+        $request['controller'] = $uri[0];    
+        if(isset($uri[1]))
+        {
+            $request['action'] = $uri[1];
+            for($i=2; i<count($uri); $i=$i+2)
+            {
+                $request["$uri[i]"] = $uri[i+1];
+            }
+        }
+        else
+        {
+            $request['action'] = "";
+        }
+    }
+    else
+    {
+        $request['request'] = "";   
     }
     return $request;
 }
