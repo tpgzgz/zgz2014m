@@ -17,9 +17,13 @@ function filterForm($userForm, $post)
                 $value = trim($value);
             break;                                    
             case ('escape'):
+<<<<<<< HEAD
 
                  $value = str_replace('"', '', escapeshellarg($value));
 
+=======
+                 $value = htmlentities($value);
+>>>>>>> 0b1ca7e03bf24015815565230630d198889f6554
             break; 
             case ('stripTags'):
                 $value = strip_tags($value);
