@@ -1,42 +1,17 @@
-<table border=1>
-    <tr>
-        <td>0</td>
-        <td>1</td>
-        <td>2</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-</table>
-
 <?php
-$filas = 3;
-$columnas = 5;
 
-echo "<table border=1>";
-    for($a=0;$a<=$filas;$a++)
-    {
-        echo "<tr>";
-            for($b=0;$b<=$columnas;$b++)
-            {
-                if($a==0)
-                {
-                    echo "<td>".$b."</td>";
-                }
-                else if($b==0)
-                {
-                    echo "<td>".$a."</td>";
-                }
-                else 
-                {
-                    echo "<td>";
-                        echo $a*$b;
-                    echo "</td>";
-                }
-                
-            }
-        echo "</tr>";
+/**
+ * Genera una matriz con las tablas de multiplicar hasta $filas * $columnas
+ * @param int $filas
+ * @param int $columnas
+ * @return array
+ */
+function tablaMultiplicar($filas, $columnas) {
+    for ($y = 0; $y <= $filas; $y++) {
+        for ($x = 0; $x <= $columnas; $x++) {
+            $tabla[$x][$y] = ($x * $y == 0) ? $x + $y : $x * $y;
+        }
     }
-echo "</table>";
+
+    return $tabla;
+}
