@@ -22,16 +22,16 @@
  */
 
 
-function parseURL($_SERVER['REQUEST_URI'])
+function parseURL($uri)
 {
-    array('controller'=>
-        'action'=>
-        'params'=>array(
-            'param1'=>'values1',
-            'param2'=>'values2',
-            ...
-            ...
-        )
-    );
+    if(isset($uri[0]))
+        $request['controller']=$uri[0];
+    
+    if(isset($uri[1]))
+        $request['action']=$uri[1];
+    for($i=2; i<count($uri); $i=$i+2)
+    {
+        $request["$uri[i]"] = $uri[i+1];
+    }
     return $request;
 }

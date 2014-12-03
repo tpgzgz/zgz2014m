@@ -23,21 +23,20 @@ echo "</pre>";
 
 // include_once '../modules/Core/src/Router/models/parseUrl.php';
 
-// $url = parseURL();
-
+$url = parseURL($data);
+/*
 $request = array ('controller'=>'users', 
               'action'=>'select'
 );
-
+*/
 switch($request['controller'])
 {
     case 'users':
         include_once '../modules/Application/src/Application/controllers/users.php';
     break;
-    case 'error':
-        
+    case '':
+        include_once '../modules/Application/src/Application/controllers/users.php';
+    default:
+        include_once '../modules/Application/src/Application/controllers/error.php';
     break;
 }
-
-
-
