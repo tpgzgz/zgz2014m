@@ -39,7 +39,7 @@ switch($request['controller'])
     break;
     case 'error':
         ob_start();
-        include_once '../modules/Application/src/Application/controllers/error.php';
+            include_once '../modules/Application/src/Application/controllers/error.php';
         $view=ob_get_contents();
         ob_end_clean();
     break;
