@@ -24,7 +24,7 @@ function parseURL()
             $action = isset($parts[1]) ? $parts[1] : '';
                    
             ////
-            $validActions = array ('insert', 'update', 'delete', 'select');
+            $validActions = array ('insert', 'update', 'delete', 'select' , 'uuid');
             ////
             
             if (in_array($action, $validActions)) {

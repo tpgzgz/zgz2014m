@@ -11,10 +11,10 @@ include_once '../modules/Application/src/Application/models/updateUser.php';
 include_once '../modules/Application/src/Application/models/deleteUser.php';
 include_once '../modules/Application/src/Application/models/hydrateUser.php';
 
+include_once '../modules/Application/src/Application/models/uuid.php';
 
 
-
-$validActions = array ('insert', 'update', 'delete', 'select');
+$validActions = array ('insert', 'update', 'delete', 'select', 'uuid');
 
 switch ($request['action'])
 {
@@ -69,25 +69,32 @@ switch ($request['action'])
         $data = explode("\n", $data);
         include ("../modules/Application/src/Application/views/users/select.phtml");
     break;
-    case 'delete':       
+    case 'delete':
         if($_POST)
-        {            
+        {
             $filter = filterForm($userdeleteForm, $_POST);
             $valid = validateForm($userdeleteForm, $filter);
             if($valid['valid'] && $_POST['borrar']=='Si')
-                deleteUser($filter['id']);            
-           
-            header("Location: /users/select");            
-        }        
-        else 
+                deleteUser($filter['id']);
+             
+            header("Location: /users/select");
+        }
+        else
         {
             $userData=fetchUser($request['params']['id']);
             $userData[0]=$request['params']['id'];
             $values = hydrateUser($userData);
             $private_key='962d52aca6a17be6185267ef085de20e4ae3fc637944a01c4ea38057dc4cc7ab';
             $values['token']=hash('sha256', $_SERVER['SERVER_ADDR'].$private_key);
-            
+    
             include('../modules/Application/src/Application/views/users/delete.phtml');
-        }       
+        }
     break;
+    case 'uuid':
+       $uuid = uuid_v4();
+       
+       include('../modules/Application/src/Application/views/users/uuid.phtml');
+    
+    break;
+    
 }
