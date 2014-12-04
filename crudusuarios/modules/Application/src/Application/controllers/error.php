@@ -1,5 +1,6 @@
 <?php
 
+
 switch ($request['action']){
     case 100: $text = 'Continue'; break;
     case 101: $text = 'Switching Protocols'; break;
@@ -41,6 +42,7 @@ switch ($request['action']){
     default:
         exit('Unknown http status code "' . htmlentities($code) . '"');
         break;
+
 }
 http_response_code($code);
 echo "Error ". $request['action'] .": ". $text;
