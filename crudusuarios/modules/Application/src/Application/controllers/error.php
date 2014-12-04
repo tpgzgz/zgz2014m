@@ -39,10 +39,10 @@ switch ($request['action']){
     case 504: $text = 'Gateway Time-out'; break;
     case 505: $text = 'HTTP Version not supported'; break;
     default:
-        exit('Unknown http status code "' . htmlentities($code) . '"');
+        exit('Unknown http status code "' . htmlentities($request['action']) . '"');
         break;
 
 }
-http_response_code($code);
+http_response_code($request['action']);
 echo "Error ". $request['action'] .": ". $text;
 
