@@ -50,6 +50,7 @@ function parseURL()
                 $aux_params = isset($parts[2]) ? explode('/', $parts[2]) : [];
                 if (count($aux_params) % 2 != 0) {
                     // wrong params
+                    header($_SERVER["SERVER_PROTOCOL"]." 405 Method Not Allowed");
                     $controller = 'error';
                     $action = '405';
                     $params = [];
@@ -62,13 +63,15 @@ function parseURL()
                 
             } else {
                 // invalid action
+                header($_SERVER["SERVER_PROTOCOL"]." 400 Bad Request");
                 $controller = 'error';
-                $action = '404';
+                $action = '400';
                 $params = [];
             }
         
         } else {
             // controller does not exist
+            header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
             $controller = "error";
             $action = "404";
             $params = [];
