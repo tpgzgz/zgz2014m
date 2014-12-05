@@ -66,7 +66,7 @@ switch ($request['action'])
     break;
     default:
     case 'select':
-        $data = fetchAllUser($config);
+        $data = fetchAllUser($config);       
         include ("../modules/Application/src/Application/views/users/select.phtml");
     break;
     case 'delete':       

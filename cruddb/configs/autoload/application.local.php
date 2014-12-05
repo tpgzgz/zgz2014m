@@ -1,7 +1,7 @@
 <?php
 $config = array(
 	'database'=>array(
-        'user'=>'phph',
+        'user'=>'php',
         'password'=>'1234',        
     ),
     'repository'=>'db'    
