@@ -1,0 +1,16 @@
+<a href="/users/insert">Insert</a>
+<table class="table table-striped">
+<?php foreach ($data as $key => $fila):?>
+    <tr>
+        <?php 
+        $columna = explode("|", $fila);
+        foreach ($columna as $value):?>
+            <td><?=$value;?></td>
+        <?php endforeach;?>
+        <td>
+            <a href="/users/update/id/<?=$key;?>">Update</a> | 
+            <a href="/users/delete/id/<?=$key;?>">Delete</a>
+        </td>
+   </tr>
+<?php endforeach;?>
+</table>
