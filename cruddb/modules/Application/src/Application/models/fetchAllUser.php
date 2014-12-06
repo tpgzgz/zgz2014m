@@ -2,7 +2,7 @@
  * Fetch all users on the same array
  * 
  * @param array $config
- * @return arry $users
+ * @return array $users
  */
  
 <?php
