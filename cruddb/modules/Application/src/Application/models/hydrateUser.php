@@ -1,3 +1,10 @@
+/**
+ * Hidrate user data
+ * 
+ * @param array $usuario
+ * @return array $values
+ */
+ 
 <?php
 
 function hydrateUser($usuario)
