@@ -1,3 +1,10 @@
+/**
+ * Update data of an user
+ * 
+ * @param array $filter
+ * @return nothing just change data on repository
+ */
+ 
 <?php
 
 
