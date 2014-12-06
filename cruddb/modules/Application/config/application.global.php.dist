@@ -1,3 +1,4 @@
+// Base of Global identities configuration settings on $config variable to redistribute
 <?php
 $config = array(
 	'database'=>array(
