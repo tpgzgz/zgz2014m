@@ -1,3 +1,4 @@
+// Global modules configuration settings on $config variable
 <?php
 $config = array(
     'modules'=>array(
