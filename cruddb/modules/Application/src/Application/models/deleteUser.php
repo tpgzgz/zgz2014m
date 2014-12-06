@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Deelte user by id
+ * Delete user by id
  * 
  * @param int $id
  * @return number or FALSE
