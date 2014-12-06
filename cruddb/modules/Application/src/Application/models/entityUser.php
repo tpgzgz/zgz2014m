@@ -1,3 +1,4 @@
+//Definition or user identiti array
 <?php
 
 $user = array ('id'=>'',
