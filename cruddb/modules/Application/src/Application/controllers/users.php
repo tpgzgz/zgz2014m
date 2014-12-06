@@ -39,30 +39,29 @@ switch ($request['action'])
         }  
     break;
     case 'update':      
-            // Si POST
-            if($_POST)
+        // Si POST
+        if($_POST)
+        {
+            $filter = filterForm($userForm, $_POST);
+            $valid = validateForm($userForm, $filter);
+            if($valid['valid'])
             {
-                    $filter = filterForm($userForm, $_POST);
-                    $valid = validateForm($userForm, $filter);
-                    if($valid['valid'])
-                    {
-                        $data = $filter;
-                        $data['id']=$_POST['id'];
-                        updateUser($data);
-                    }                        
-                    // Ir al select
-                    header("Location: /users/select"); 
-            }
-            // Si no POST
+                $filter['id']=$_POST['id'];
+                updateUser($filter, $config);
+            }                        
+            // Ir al select
+            header("Location: /users/select"); 
+        }
+        // Si no POST
+        // Cargar el formulario con datos
+        else 
+        {               
+            $values = fetchUser($request['params']['id'], $config); 
+            //$userData[0] = $request['params']['id'];
+            //$values = hydrateUser($userData);               
             // Cargar el formulario con datos
-            else 
-            {               
-                $userData=fetchUser($request['params']['id']); 
-                $userData[0]=$request['params']['id'];
-                $values = hydrateUser($userData);               
-                // Cargar el formulario con datos
-                include('../modules/Application/src/Application/views/users/update.phtml');
-            }  
+            include('../modules/Application/src/Application/views/users/update.phtml');
+        }  
     break;
     default:
     case 'select':
