@@ -1,3 +1,10 @@
+/**
+ * Selects and sets the error response and show text error
+ * 
+ * @param array $request using $request['action'] to identify error
+ * @return nothing shows a messagge of error
+ */
+ 
 <?php
 
 
