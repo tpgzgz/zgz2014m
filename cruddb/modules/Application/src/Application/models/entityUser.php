@@ -1,4 +1,4 @@
-//Definition or user identiti array
+//Definition or user identity array
 <?php
 
 $user = array ('id'=>'',
