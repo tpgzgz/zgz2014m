@@ -35,7 +35,7 @@ function deleteUser($id, $config)
                 $config['database']['password']);
             // Seleccionar la DB
             mysqli_select_db($link, $config['database']['database']);
-            // Seleccionar el usuario
+            // Eliminar el usuario
             $sql = "DELETE FROM users WHERE iduser = " . $id;
             mysqli_query($link, $sql);
             break;
