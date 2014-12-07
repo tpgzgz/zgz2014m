@@ -48,7 +48,7 @@ switch ($request['action'])
                     {
                         $data = $filter;
                         $data['id']=$_POST['id'];
-                        updateUser($data);
+                        updateUser($data, $config, $userform);
                     }                        
                     // Ir al select
                     header("Location: /users/select"); 
