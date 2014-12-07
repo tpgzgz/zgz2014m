@@ -11,9 +11,9 @@ function fetchAllUser($config)
     switch ($config['repository'])
     {
         case 'txt':
-            $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
-            $data = explode("\n", $data);
-            return $data;
+            $users = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
+            $users = explode("\n", $users);
+            return $users;
         break;
         case 'db':
             
