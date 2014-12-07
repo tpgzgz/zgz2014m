@@ -81,7 +81,7 @@ switch ($request['action'])
         }        
         else 
         {
-            $userData=fetchUser($request['params']['id']);
+            $userData=fetchUser($request['params']['id'],$config);
             $userData[0]=$request['params']['id'];
             $values = hydrateUser($userData);
             $private_key='962d52aca6a17be6185267ef085de20e4ae3fc637944a01c4ea38057dc4cc7ab';
