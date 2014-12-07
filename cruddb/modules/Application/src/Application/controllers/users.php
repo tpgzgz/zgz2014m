@@ -29,7 +29,7 @@ switch ($request['action'])
                 //Insertar en el repositorio
                 move_uploaded_file($_FILES['photo']['tmp_name'], 
                                    $_SERVER['DOCUMENT_ROOT']."/uploads/".$_FILES['photo']['name']);                
-                createUser($filter, $_FILES['photo']['name']);               
+                createUser($filter, $_FILES['photo']['name'], $config, $userForm);               
                 header("Location: /users/select");
             }            
         }   
