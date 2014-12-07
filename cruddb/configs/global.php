@@ -1,5 +1,5 @@
-// Global modules configuration settings on $config variable
 <?php
+// Global modules configuration settings on $config variable
 $config = array(
     'modules'=>array(
         //'Core',
