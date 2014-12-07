@@ -52,6 +52,7 @@ function createUser($filter, $imagename, $config, $user)
 //                                 description = '".$user['description']."',
 //                                 gender = '".$user['gender']."',
 //                                 city = '".$user['city']."'";
+//             mysqli_query($link, $sql);
 //             // crear el resto de relaciones
 //             foreach($user['pet'] as $pet)
 //             {
