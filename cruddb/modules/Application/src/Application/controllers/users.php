@@ -57,7 +57,7 @@ switch ($request['action'])
             // Cargar el formulario con datos
             else 
             {               
-                $userData=fetchUser($request['params']['id']); 
+                $userData=fetchUser($request['params']['id'],$config); 
                 $userData[0]=$request['params']['id'];
                 $values = hydrateUser($userData);               
                 // Cargar el formulario con datos
