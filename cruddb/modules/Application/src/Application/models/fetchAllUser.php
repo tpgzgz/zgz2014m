@@ -1,3 +1,4 @@
+<?php
 /**
  * Fetch all users on the same array
  * 
@@ -5,8 +6,6 @@
  * @return array $users
  */
  
-<?php
-
 function fetchAllUser($config)
 {
     switch ($config['repository'])
