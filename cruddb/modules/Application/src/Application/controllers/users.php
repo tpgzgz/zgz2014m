@@ -75,7 +75,7 @@ switch ($request['action'])
             $filter = filterForm($userdeleteForm, $_POST);
             $valid = validateForm($userdeleteForm, $filter);
             if($valid['valid'] && $_POST['borrar']=='Si')
-                deleteUser($filter['id']);            
+                deleteUser($filter['id'],$config);            
            
             header("Location: /users/select");            
         }        
