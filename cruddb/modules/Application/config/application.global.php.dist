@@ -1,5 +1,5 @@
-// Base of Global identities configuration settings on $config variable to redistribute
 <?php
+// Base of Global identities configuration settings on $config variable to redistribute
 $config = array(
 	'database'=>array(
         'user'=>'username',
