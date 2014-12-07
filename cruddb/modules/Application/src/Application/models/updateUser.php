@@ -1,3 +1,4 @@
+<?php
 /**
  * Update data of an user
  * 
@@ -5,9 +6,6 @@
  * @return nothing just change data on repository
  */
  
-<?php
-
-
 function updateUser($filter)
 {
     $filename = 'usuarios.txt';
