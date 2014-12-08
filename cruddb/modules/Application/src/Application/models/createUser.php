@@ -1,22 +1,18 @@
 <?php
 
 /**
- * write2txt
- * 
- * Escribe los datos en un archivo de texto 
- * separado por pipes, y por comas los de tipo array
+ * Escribe los datos del nuevo usuario en el repositorio
+ * Si el repositorio en un fichero de texto se 
+ * separara por pipes, y por comas los de tipo array
  * 
  * @param array $filter
  * @param string $imagename
- * @param string $filename
- * @param boolean $append 
- * @return number int number of bytes | FALSE
+ * @param unknow $config 
+ * @return number int number of bytes | FALSE ???
  */
 
-function createUser($filter, $imagename)
+function createUser($filter, $imagename, $config)
 {
-    $filename = 'usuarios.txt';
-    
     foreach($filter as $key => $value)
     {
         if(is_array($value))
@@ -25,10 +21,76 @@ function createUser($filter, $imagename)
     }
     $data[]=$imagename;
     $data = implode('|', $data);
+
+    switch ($config['repository'])
+    {
+        case 'txt':
+            $filename = 'usuarios.txt';
+            return file_put_contents($_SERVER['DOCUMENT_ROOT']."/".$filename,
+                                        $data."\n",
+                                        FILE_APPEND);
+        break;
+        case 'db':
+            // Conectarse al DBMS
+            $link = mysqli_connect($config['database']['host'],
+            $config['database']['user'],
+            $config['database']['password']);
+            // Seleccionar la DB
+            mysqli_select_db($link, $config['database']['database']);
+            
+            // Add uuid in iduser
+            if (empty($filter['id'])) 
+                $filter['id'] = uuid_v4();
+                        
+            // Get idgender
+            $sql = "SELECT idgender FROM usuarios.genders
+                    WHERE gender = '".$filter['gender']."';";
+            
+            $result = mysqli_query($link, $sql);
+            $gender = mysqli_fetch_row($result)[0];
+            
+            // Get idcity
+            $sql = "SELECT idcity FROM cities
+                    WHERE city = '".$filter['city']."';";
+            
+            $result = mysqli_query($link, $sql);
+            $city = mysqli_fetch_row($result)[0];
+            
+            // Insert user
+            $sql = "INSERT INTO users SET
+			iduser = '".$filter['id']."',
+			name = '".$filter['name']."',
+            lastname = '".$filter['lastname']."',
+            email = '".$filter['email']."',
+            password = '".$filter['password']."',
+            description = '".$filter['description']."',
+            photo = '".$imagename."',
+            cities_idcity = ".$city.",
+            genders_idgender = ".$gender.";";
+            
+            echo "<pre>Filter: ";
+            print_r($filter);
+            echo "</pre>";
+            
+            echo "<pre>Data: ";
+            print_r($data);
+            echo "</pre>";
+            
+            echo "<pre>sql:\n";
+            print_r($sql);
+            echo "</pre>";
+            
+            // Retornar el data
+            $result = mysqli_query($link, $sql);
     
-        return file_put_contents($_SERVER['DOCUMENT_ROOT']."/".$filename,
-                      $data."\n",
-                      FILE_APPEND);
+            while ($row = mysqli_fetch_assoc($result))
+            {
+                $users[] = implode("|", $row);
+            }
+            return $users;
+        break;
+        case 'gd':
+        break;
+    }
     
-     
 }

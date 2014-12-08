@@ -11,7 +11,7 @@ include_once '../modules/Application/src/Application/models/createUser.php';
 include_once '../modules/Application/src/Application/models/updateUser.php';
 include_once '../modules/Application/src/Application/models/deleteUser.php';
 include_once '../modules/Application/src/Application/models/hydrateUser.php';
-
+include_once '../modules/Application/src/Application/models/uuid.php';
 
 
 
@@ -29,7 +29,7 @@ switch ($request['action'])
                 //Insertar en el repositorio
                 move_uploaded_file($_FILES['photo']['tmp_name'], 
                                    $_SERVER['DOCUMENT_ROOT']."/uploads/".$_FILES['photo']['name']);                
-                createUser($filter, $_FILES['photo']['name']);               
+                createUser($filter, $_FILES['photo']['name'], $config);               
                 header("Location: /users/select");
             }            
         }   
