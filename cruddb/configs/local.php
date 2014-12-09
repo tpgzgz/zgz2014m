@@ -1,8 +1,8 @@
 <?php
 $config = array(
     'database'=>array(
-        'user'=>'php',
-        'password'=>'1234',
+        'user'=>'root',
+        'password'=>'thx1138',
         'host'=>'localhost'
     ),
     'repository'=>'db'
