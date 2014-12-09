@@ -18,7 +18,16 @@ function fetchAllUser($config)
             // Seleccionar la DB
             mysqli_select_db($link, $config['database']['database']);
             // SELECT * FROM users;
-            $sql = "SELECT * FROM users";
+            $sql = "SELECT iduser, lastname, name, password, email, description, gender, 
+                    city, group_concat( DISTINCT pet), group_concat( DISTINCT language), photo 
+                    FROM users 
+                    JOIN genders ON genders_idgender = idgender
+                    JOIN cities ON cities_idcity = idcity
+                    LEFT JOIN users_has_languages ON users_has_languages.users_iduser = iduser
+                    LEFT JOIN languages ON idlanguage = languages_idlanguage
+                    LEFT JOIN users_has_pets ON users_has_pets.users_iduser = iduser
+                    LEFT JOIN pets ON idpet = pets_idpet
+                    GROUP BY iduser;";
             // Retornar el data
             $result = mysqli_query($link, $sql);
             

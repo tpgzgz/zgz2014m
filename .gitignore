@@ -18,3 +18,5 @@ temp/
 # Legacy ZF1
 demos/
 extras/documentation
+/crudusuarios/nbproject/private/
+/cruddb/nbproject/private/

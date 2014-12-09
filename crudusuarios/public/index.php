@@ -24,9 +24,9 @@ include_once '../modules/Core/src/Router/models/parseUrl.php';
 
 $request = parseURL($_SERVER['REQUEST_URI']);
 
-// echo "<pre> Request:" ;
-// print_r($request);
-// echo "</pre>";
+ echo "<pre> Request:" ;
+ print_r($request);
+ echo "</pre>";
 
 switch($request['controller'])
 {
