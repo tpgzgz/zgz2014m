@@ -19,7 +19,7 @@ function hydrateUser($usuario)
         'pets'=>explode(',',$usuario[8]),
         //'languages'=>(strpos($usuario[8],',')!==FALSE)?explode(',',$usuario[8]):$usuario[8],
         'languages'=>explode(',',$usuario[9]),
-        'photo'=>$usuario[11]);
+        'photo'=>$usuario[10]);
     
     return $values;
 }
