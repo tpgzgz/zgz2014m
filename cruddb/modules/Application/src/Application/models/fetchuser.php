@@ -7,16 +7,7 @@
  */
 function fetchUser($config, $id)
 {
-    // Leer los datos del usuario por ID
-    // Leer todos los datos
-    $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
-    // Dividir por saltos de linea
-    $data = explode("\n", $data);
-    // Leer la fila ID
-    $usuario = $data[$id];
-    $usuario = explode("|", $usuario);
     
-    return $usuario;
 
     switch ($config['repository'])
 	{
@@ -39,7 +30,7 @@ function fetchUser($config, $id)
 			// Seleccionar la DB
 			mysqli_select_db($link, $config['database']['database']);
 			// SELECT * FROM users WHERE id;
-			/*
+			
 			$sql = "SELECT iduser AS id, lastname, name, password, email, description, gender,
 			city, group_concat( DISTINCT pet) AS pets,
 			group_concat( DISTINCT language) AS languages, photo
@@ -58,11 +49,11 @@ function fetchUser($config, $id)
 			$row['pets'] = explode(",", $row['pets']);
 			$row['languages'] = explode(",", $row['languages']);
 			return $row;
-*/
-			// Seleccionar el usuario
- $sql = "SELECT * FROM users WHERE iduser = " . $id;
- $user = mysqli_query($link, $sql);
- return mysqli_fetch_assoc($user);
+
+// 			// Seleccionar el usuario
+//              $sql = "SELECT * FROM users WHERE iduser = " . $id;
+//              $user = mysqli_query($link, $sql);
+//              return mysqli_fetch_assoc($user);
 
 		break;
 		case 'gd':

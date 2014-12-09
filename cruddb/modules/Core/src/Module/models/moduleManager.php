@@ -1,17 +1,16 @@
 <?php
 
-
-function moduleManager($config)
+function moduleManager($configfile)
 {
-    include_once $config;
+    include_once $configfile;
     
-
+    
 
 
     $globalConfig=array();
     $localConfig=array();
       
-    foreach($config['modules'] as $module)
+    foreach($configfile['modules'] as $module)
     {   
         $globalFile = __DIR__.'/../../../../../configs/autoload/'.strtolower($module).'.global.php';
 

@@ -88,6 +88,7 @@ $userForm = array(
     'city'=> array(
         'type'=>'select',
         'name'=>'city',
+//         'table'=>array('cities', 'idcity', 'city'),
         'options'=>array('zaragoza'=>'Zaragoza', 'madrid'=>'Madrid', 'barcelona'=>'Barcelona'),
         'value'=>array('zaragoza'),
         'label'=>'Ciudad',

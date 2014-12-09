@@ -24,10 +24,7 @@ switch ($request['action'])
         {
             $filter = filterForm($userForm, $_POST);           
             $valid = validateForm($userForm, $filter);
-echo "<pre>filter:";
- print_r($filter);
- echo "</pre>";
- //die();
+
             if($valid['valid'])
             {
                 //Insertar en el repositorio
@@ -63,7 +60,7 @@ echo "<pre>filter:";
         // Cargar el formulario con datos
         else 
         {               
-            $values = fetchUser($request['params']['id'], $config); 
+            $values = fetchUser($config, $request['params']['id']); 
             //$userData[0] = $request['params']['id'];
             //$values = hydrateUser($userData);               
             // Cargar el formulario con datos
@@ -84,17 +81,14 @@ echo "<pre>filter:";
             if($valid['valid'] && $_POST['borrar']=='Si')
                 deleteUser($config,$filter['id']);            
             
-
             header("Location: /users/select");            
         }        
         else 
-        {
-
-         
+        {        
             $userData=fetchUser($config, $request['params']['id']);
 
             $userData[0]=$request['params']['id'];
-            $values = hydrateUser($userData);
+            $values = hydrateUser($config,$userData);
             $private_key='962d52aca6a17be6185267ef085de20e4ae3fc637944a01c4ea38057dc4cc7ab';
             $values['token']=hash('sha256', $_SERVER['SERVER_ADDR'].$private_key);
             
