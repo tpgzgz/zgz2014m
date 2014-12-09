@@ -19,8 +19,8 @@ temp/
 demos/
 extras/documentation
 
-
-
+/crudusuarios/nbproject/private/
+/cruddb/nbproject/private/
 
 *.pydevproject
 .metadata
@@ -52,3 +52,4 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
