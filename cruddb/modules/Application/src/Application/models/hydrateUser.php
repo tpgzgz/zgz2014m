@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Hidrate user data
+ * 
+ * @param array $usuario
+ * @return array $values
+ */
+ 
 function hydrateUser($usuario)
 {
     $values = array ('id'=>$usuario[0],

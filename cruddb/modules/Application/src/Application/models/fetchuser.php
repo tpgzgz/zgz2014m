@@ -3,15 +3,18 @@
 /**
  * Fetch user by id
  * @param int $id
- * @return array
+ * @param array $config
+ * @return array $user
  */
-function fetchUser($id, $config)
+
+function fetchUser($id,$config)
 {
     switch ($config['repository'])
     {
         case 'txt':
             // Leer los datos del usuario por ID
             // Leer todos los datos
+
             $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
             // Dividir por saltos de linea
             $data = explode("\n", $data);
@@ -55,3 +58,4 @@ function fetchUser($id, $config)
         
     }
 }
+

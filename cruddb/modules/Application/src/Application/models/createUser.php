@@ -8,10 +8,11 @@
  * 
  * @param array $filter
  * @param string $imagename
- * @param string $filename
- * @param boolean $append 
+ * @param array $config
+ * @param userForm $user
  * @return number int number of bytes | FALSE
  */
+
 
 function createUser($filter, $imagename, $config)
 {
@@ -55,6 +56,4 @@ function createUser($filter, $imagename, $config)
                 
        }  
 }
-
-
 

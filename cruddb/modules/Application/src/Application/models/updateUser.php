@@ -1,7 +1,16 @@
 <?php
+/**
+ * Update data of an user
+ *
+ * @param array $filter
+ * @param array $config
+ * @param userForm $user
+ * @return nothing just change data on repository
+ */
 
 
 function updateUser($filter, $config)
+
 {
     switch ($config['repository'])
     {
@@ -18,6 +27,7 @@ function updateUser($filter, $config)
                 $data[$key]=$value;
             }
             $data = implode('|', $data);
+
 
             $usuarios[$filter['id']] = $data;
             $usuarios = implode("\n", $usuarios);
@@ -119,3 +129,5 @@ function updateUser($filter, $config)
         break;     
     }   
 }
+
+
