@@ -19,7 +19,6 @@ $data = explode('/', $_SERVER['REQUEST_URI']);
 // print_r($data);
 // echo "</pre>";
 
-
 include_once '../modules/Core/src/Router/models/parseUrl.php';
 
 $request = parseURL($_SERVER['REQUEST_URI']);
@@ -47,4 +46,3 @@ switch($request['controller'])
 
 
 include_once '../modules/Application/src/Application/layouts/dashboard.phtml';
-
