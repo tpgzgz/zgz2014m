@@ -7,7 +7,8 @@
  * @return array $user
  */
 
-function fetchUser($id,$config)
+function fetchUser($id, $config)
+
 {
     switch ($config['repository'])
     {
@@ -21,6 +22,7 @@ function fetchUser($id,$config)
             // Leer la fila ID
             $usuario = $data[$id];
             $usuario = explode("|", $usuario);
+
 
             return $usuario;
         break;
@@ -58,4 +60,5 @@ function fetchUser($id,$config)
         
     }
 }
+
 
