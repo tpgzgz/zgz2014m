@@ -1,4 +1,5 @@
 <?php
+// Global identities configuration settings on $config variable
 $config = array(
 	'database'=>array(
         'user'=>'username',

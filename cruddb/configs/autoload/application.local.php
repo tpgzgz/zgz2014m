@@ -1,4 +1,5 @@
 <?php
+// Local identities configuration settings on $config variable
 $config = array(
 	'database'=>array(
         'user'=>'php',
