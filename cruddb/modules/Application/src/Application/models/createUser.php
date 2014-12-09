@@ -12,6 +12,7 @@
  * @return number int number of bytes | FALSE
  */
 
+
 function createUser($filter, $imagename, $config)
 {
     foreach($filter as $key => $value)
@@ -92,6 +93,7 @@ function createUser($filter, $imagename, $config)
         break;
         case 'gd':
         break;
+
     }
     
 }

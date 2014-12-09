@@ -24,11 +24,16 @@ switch ($request['action'])
         {
             $filter = filterForm($userForm, $_POST);           
             $valid = validateForm($userForm, $filter);
+echo "<pre>filter:";
+ print_r($filter);
+ echo "</pre>";
+ //die();
             if($valid['valid'])
             {
                 //Insertar en el repositorio
                 move_uploaded_file($_FILES['photo']['tmp_name'], 
                                    $_SERVER['DOCUMENT_ROOT']."/uploads/".$_FILES['photo']['name']);                
+
                 createUser($filter, $_FILES['photo']['name'], $config);               
 
                 header("Location: /users/select");
@@ -77,13 +82,17 @@ switch ($request['action'])
             $filter = filterForm($userdeleteForm, $_POST);
             $valid = validateForm($userdeleteForm, $filter);
             if($valid['valid'] && $_POST['borrar']=='Si')
-                deleteUser($filter['id'],$config);            
-           
+                deleteUser($config,$filter['id']);            
+            
+
             header("Location: /users/select");            
         }        
         else 
         {
-            $userData=fetchUser($request['params']['id'],$config);
+
+         
+            $userData=fetchUser($config, $request['params']['id']);
+
             $userData[0]=$request['params']['id'];
             $values = hydrateUser($userData);
             $private_key='962d52aca6a17be6185267ef085de20e4ae3fc637944a01c4ea38057dc4cc7ab';
