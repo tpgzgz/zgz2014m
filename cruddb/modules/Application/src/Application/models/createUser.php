@@ -15,18 +15,19 @@
 
 function createUser($filter, $imagename, $config)
 {
-    foreach($filter as $key => $value)
-    {
-        if(is_array($value))
-            $value=implode(',', $value);
-        $data[$key]=$value;
-    }
-    $data[]=$imagename;
-    $data = implode('|', $data);
+
 
     switch ($config['repository'])
     {
         case 'txt':
+            //     foreach($filter as $key => $value)
+                //     {
+                //         if(is_array($value))
+                    //             $value=implode(',', $value);
+                    //         $data[$key]=$value;
+                    //     }
+            //     $data[]=$imagename;
+            //     $data = implode('|', $data);
             $filename = 'usuarios.txt';
             return file_put_contents($_SERVER['DOCUMENT_ROOT']."/".$filename,
                                         $data."\n",
@@ -47,14 +48,14 @@ function createUser($filter, $imagename, $config)
             // Get idgender
             $sql = "SELECT idgender FROM usuarios.genders
                     WHERE gender = '".$filter['gender']."';";
-            
+
             $result = mysqli_query($link, $sql);
             $gender = mysqli_fetch_row($result)[0];
             
             // Get idcity
             $sql = "SELECT idcity FROM cities
                     WHERE city = '".$filter['city']."';";
-            
+
             $result = mysqli_query($link, $sql);
             $city = mysqli_fetch_row($result)[0];
             
@@ -70,18 +71,7 @@ function createUser($filter, $imagename, $config)
             cities_idcity = ".$city.",
             genders_idgender = ".$gender.";";
             
-            echo "<pre>Filter: ";
-            print_r($filter);
-            echo "</pre>";
-            
-            echo "<pre>Data: ";
-            print_r($data);
-            echo "</pre>";
-            
-            echo "<pre>sql:\n";
-            print_r($sql);
-            echo "</pre>";
-            
+
             // Retornar el data
             $result = mysqli_query($link, $sql);
     

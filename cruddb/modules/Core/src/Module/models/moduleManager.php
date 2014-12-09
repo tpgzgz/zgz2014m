@@ -1,13 +1,11 @@
 <?php
 
-
-function moduleManager($config)
+function moduleManager($configfile)
 {
-    include_once $config;
     
-
-
-
+    echo $configfile;
+    include_once $configfile;
+    
     $globalConfig=array();
     $localConfig=array();
       

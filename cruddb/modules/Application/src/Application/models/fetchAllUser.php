@@ -34,13 +34,14 @@ function fetchAllUser($config)
                     LEFT JOIN users_has_pets ON users_has_pets.users_iduser = iduser
                     LEFT JOIN pets ON idpet = pets_idpet
                     GROUP BY iduser;";
+           
             // Retornar el data
             $result = mysqli_query($link, $sql);
             
             while ($row = mysqli_fetch_assoc($result))
-            {
+            {               
                 $users[] = implode("|", $row);
-            }
+            }            
             return $users;            
         break;
         case 'gd':

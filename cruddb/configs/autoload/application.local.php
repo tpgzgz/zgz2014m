@@ -2,8 +2,9 @@
 // Local identities configuration settings on $config variable
 $config = array(
 	'database'=>array(
-        'user'=>'root',
-        'password'=>'thx1138',        
+        'user'=>'php',
+        'password'=>'1234',
+	    'database'=>'usuarios'
     ),
     'repository'=>'db'    
 );

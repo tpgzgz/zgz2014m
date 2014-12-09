@@ -16,9 +16,7 @@ function deleteUser($config,$id)
     {
         case 'txt':
             $filename = 'usuarios.txt';
-    
-
-            // Leer los datos del usuario
+                // Leer los datos del usuario
             // Leer todo el fichero en un string
             $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
             // Separar por saltos de linea
@@ -30,13 +28,9 @@ function deleteUser($config,$id)
             $usuarios = implode("\n", $data);
             // Escribir todo el array al fichero
             return file_put_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt",
-            $usuarios);
-
-            
-
+            $usuarios); 
         break;
-        case 'db':
-    
+        case 'db':    
             // Conectarse al DBMS
             $link = mysqli_connect($config['database']['host'],
             $config['database']['user'],
@@ -44,8 +38,7 @@ function deleteUser($config,$id)
             // Seleccionar la DB
             mysqli_select_db($link, $config['database']['database']);
             // SELECT * FROM users;
-            $sql = "DELETE FROM users WHERE iduser=$id";
-            
+            $sql = "DELETE FROM users WHERE iduser='$id'";
             $result = mysqli_query($link, $sql);
 
             break;
