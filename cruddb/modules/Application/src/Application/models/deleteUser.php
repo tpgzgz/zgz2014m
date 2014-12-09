@@ -8,12 +8,16 @@
  * @return number or FALSE
  */
 
-function deleteUser($id, $config)
+
+function deleteUser($config,$id)
 {
+    
     switch ($config['repository'])
     {
         case 'txt':
-            $filename = 'usuarios.txt';           
+            $filename = 'usuarios.txt';
+    
+
             // Leer los datos del usuario
             // Leer todo el fichero en un string
             $data = file_get_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt");
@@ -27,17 +31,28 @@ function deleteUser($id, $config)
             // Escribir todo el array al fichero
             return file_put_contents($_SERVER['DOCUMENT_ROOT']."/usuarios.txt",
             $usuarios);
-            break;
+
+            
+
+        break;
         case 'db':
+    
             // Conectarse al DBMS
             $link = mysqli_connect($config['database']['host'],
-                $config['database']['user'],
-                $config['database']['password']);
+            $config['database']['user'],
+            $config['database']['password']);
             // Seleccionar la DB
             mysqli_select_db($link, $config['database']['database']);
-            // Eliminar el usuario
-            $sql = "DELETE FROM users WHERE iduser = " . $id;
-            mysqli_query($link, $sql);
+            // SELECT * FROM users;
+            $sql = "DELETE FROM users WHERE iduser=$id";
+            
+            $result = mysqli_query($link, $sql);
+
             break;
+        case 'gd':
+            break;
+    
     }
+       
 }
+
