@@ -44,6 +44,7 @@ switch ($request['action']){
     case 503: $text = 'Service Unavailable'; break;
     case 504: $text = 'Gateway Time-out'; break;
     case 505: $text = 'HTTP Version not supported'; break;
+    case nouser: $text = 'User/Password wrong'; break;
     default:
         exit('Unknown http status code "' . htmlentities($code) . '"');
         break;

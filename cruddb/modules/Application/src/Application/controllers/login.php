@@ -14,15 +14,11 @@ switch ($request['action']){
             * TODO
             * Cargar los datos del usuario en la session
             */
+           header("Location: /users/insert");
        }
        else
        {
-            header('LOCATION ');
-            /**
-             * TODO:
-             * redirigir al error
-             * crear el tipo de error: usuario incorrecto
-             */    
+            header("Location: /error/nouser");
        }
     break;
 }
