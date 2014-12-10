@@ -18,7 +18,7 @@ function comprobarUsurio($config, $name, $password)
             // Retornar el data
             $result = mysqli_query($link, $sql);
             $row = mysqli_fetch_assoc($result);
-            if(count($row)==1) return true;
+            if(count($row)==1) return $result['iduser'];
             else return false;
         break;
         case 'gd':
