@@ -2,8 +2,6 @@
 
 function moduleManager($configfile)
 {
-    
-    echo $configfile;
     include_once $configfile;
     
     $globalConfig=array();

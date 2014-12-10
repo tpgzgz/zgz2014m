@@ -5,9 +5,8 @@ segun la url. Dependiendo del controlador introducido en la url, se incluye un a
 u otro de los controllers
 */
 
-const DEFAULT_CONTROLLER = 'users';
-const DEFAULT_ACTION = 'select';
- 
+const DEFAULT_CONTROLLER = 'home';
+const DEFAULT_ACTION = 'select'; 
 
 function parseURL()
 {   
@@ -35,7 +34,9 @@ function parseURL()
             // Si en el array hay un valor en la segunda clave, se asigna a la variable
             $action = isset($parts[1]) ? $parts[1] : '';
                
-            $validActions = array ('insert', 'update', 'delete', 'select');
+
+            $validActions = array ('insert', 'update', 'delete', 'select', 'index', 'login');
+
             // Si la accion es un valor valido...
             if (in_array($action, $validActions)) {
                 // Si ademas se han pasado parametros en la url se asignan a una variable
