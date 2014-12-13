@@ -64,13 +64,46 @@ class Mysql implements AdapterInterface, MysqlInterface
         $row = mysqli_fetch_assoc($result);
         
         return $row;
-        
     }
     
-    
-
-    
-   
-    
+	public function delete($id)
+	{
+		$sql = "DELETE 
+				FROM ".$this->table."
+				WHERE ".key($id)."='".$id[key($id)]."'";
+		$result = mysqli_query($this->link, $sql);
+		return mysqli_affected_rows($link);
+		//return $result;
+	}
+	
+	public function insert($data)
+	{
+		$sql = "INSERT 
+			INTO ".$this->table." SET ";
+		$elements = count($data);
+		//for ($i=0; $i<$elements-2; $i++) 
+		//{
+		//	$sql .= key($i)."='".$data[key($i)]."', ";
+		//}
+		foreach ($data as $key => $value) 
+		{
+			$sql .= $key."='".$value."',";
+		}
+		$sql = substr($sql, 0, -1);
+		$result = mysqli_query($this->link, $sql);
+		return mysqli_insert_id($link);
+	}
+	
+	public function update($id,$data)
+	{
+		foreach ($data as $key => $value) 
+		{
+			$sql .= $key."='".$value."',";
+		}
+		$sql = substr($sql, 0, -1);
+		$sql .= " WHERE ".key($id)."='".$id[key($id)]."'";
+		$result = mysqli_query($this->link, $sql);
+		return mysqli_affected_rows($link);
+	}
     
 }
