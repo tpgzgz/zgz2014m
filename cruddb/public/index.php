@@ -21,10 +21,17 @@ switch($request['controller'])
     break;
     case 'login':
         ob_start();
-            include_once '../modules/Application/src/Application/controllers/login.php';   
+        include_once '../modules/Application/src/Application/controllers/login.php';   
         $view=ob_get_contents();
         ob_end_clean();
         include_once '../modules/Application/src/Application/layouts/signin.phtml';
+    break;
+    case 'timeline':
+        ob_start();
+            include_once '../modules/Application/src/Application/controllers/timeline.php';   
+        $view=ob_get_contents();
+        ob_end_clean();
+        include_once '../modules/Application/src/Application/layouts/dashboard.phtml';
     break;
     case 'users':
         ob_start();
