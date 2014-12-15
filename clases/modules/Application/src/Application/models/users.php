@@ -1,7 +1,7 @@
 <?php
 namespace Application\models;
 
-class users
+class Users
 {
     public function fetchAll()
     {

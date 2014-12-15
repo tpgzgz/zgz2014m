@@ -1,11 +1,23 @@
 <?php
 namespace Core\Adapters;
+use Core\Application\Application;
 
 class Mysql implements AdapterInterface, MysqlInterface
 {
     private $link;
     protected $table;
     
+    public function __construct() 
+    {
+        $config = Application::getConfig();
+        $this->connect($config);
+    }
+  
+    /**
+     * Reliza una conexión, con los datos de una array de configuarción
+     * como parámetro.
+     * @param array $config
+     */
     public function connect($config)
     {
         // Conectarse al DBMS
@@ -17,6 +29,9 @@ class Mysql implements AdapterInterface, MysqlInterface
         
     }
     
+    /**
+     * Realiza la desconexión a la Base de Datos.
+     */
     public function disconnect()
     {
         mysqli_close($this->link);
@@ -38,11 +53,15 @@ class Mysql implements AdapterInterface, MysqlInterface
         $this->table = $table;
     }
     
+    /**
+     * Fetch all rows from table
+     * @return rows
+     */
     public function fetchAll()
     {
         // SELECT * FROM users;
         $sql = "SELECT * FROM ".$this->table;
-         
+        
         // Retornar el data
         $result = mysqli_query($this->link, $sql);
         
@@ -53,7 +72,11 @@ class Mysql implements AdapterInterface, MysqlInterface
         return $rows;
     }
     
-    
+    /**
+     * Fetch id row from table
+     * @param array $id
+     * @return row 
+     */
     public function fetch($id)
     {
         $sql = "SELECT * 
@@ -61,49 +84,72 @@ class Mysql implements AdapterInterface, MysqlInterface
                 WHERE ".key($id)."='".$id[key($id)]."'";
         // Retornar el data
         $result = mysqli_query($this->link, $sql);
-        $row = mysqli_fetch_assoc($result);
+        //$row = mysqli_fetch_assoc($result);
         
-        return $row;
+        while ($row = mysqli_fetch_assoc($result))
+        {
+            $rows[] = $row;
+        }
+        
+        return $rows;
+        
     }
     
-	public function delete($id)
-	{
-		$sql = "DELETE 
-				FROM ".$this->table."
-				WHERE ".key($id)."='".$id[key($id)]."'";
-		$result = mysqli_query($this->link, $sql);
-		return mysqli_affected_rows($link);
-		//return $result;
-	}
-	
-	public function insert($data)
-	{
-		$sql = "INSERT 
-			INTO ".$this->table." SET ";
-		$elements = count($data);
-		//for ($i=0; $i<$elements-2; $i++) 
-		//{
-		//	$sql .= key($i)."='".$data[key($i)]."', ";
-		//}
-		foreach ($data as $key => $value) 
-		{
-			$sql .= $key."='".$value."',";
-		}
-		$sql = substr($sql, 0, -1);
-		$result = mysqli_query($this->link, $sql);
-		return mysqli_insert_id($link);
-	}
-	
-	public function update($id,$data)
-	{
-		foreach ($data as $key => $value) 
-		{
-			$sql .= $key."='".$value."',";
-		}
-		$sql = substr($sql, 0, -1);
-		$sql .= " WHERE ".key($id)."='".$id[key($id)]."'";
-		$result = mysqli_query($this->link, $sql);
-		return mysqli_affected_rows($link);
-	}
-    
+    /**
+     * 
+     * @param array $id
+     * @return boolean 
+     */
+    public function delete($id) {
+        
+        $sql = "DELETE 
+                FROM ".$this->table." 
+                WHERE ".key($id)."='".$id[key($id)]."'";
+        
+        $result = mysqli_query($this->link, $sql);
+        
+        return $result;
+    }
+
+    /**
+     * 
+     * @param array $data
+     * @return boolean 
+     */
+    public function insert($data) {
+        $sql = "INSERT INTO ".$this->table." SET "; 
+                
+        foreach ($data as $value){
+            $sql .= key($value)." = '".current($data)."',";
+        }
+        
+        $sql = rtrim($sql,",");
+        $result = mysqli_query($this->link, $sql);
+        
+        return $result;
+    }
+
+    /**
+     * 
+     * @param array $id
+     * @param array $data
+     * @return boolean
+     */
+    public function update($id, $data) {
+        
+        $sql = "UPDATE ".$this->table." SET "; 
+                
+        foreach ($data as $value){
+            $sql .= key($value)." = '".current($data)."',";
+        }
+        $sql = rtrim($sql,",");
+        
+        $sql .= " WHERE ".key($id)."='".$id[key($id)]."'";
+        
+        $result = mysqli_query($this->link, $sql);
+        
+        return $result;
+    }
+
+
 }

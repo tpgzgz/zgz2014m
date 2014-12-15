@@ -10,12 +10,11 @@ class Application
     {
         include_once '../modules/Core/src/Router/models/parseUrl.php';
         include_once '../modules/Core/src/Module/models/moduleManager.php';
-        
-       
-        
+            
         self::$request = parseURL($_SERVER['REQUEST_URI']);
         self::$config = moduleManager($config);
     }
+    
     
     public static function bootstrap()
     {
@@ -52,4 +51,11 @@ class Application
     {
         return self::$config;
     }
+    
+    public static function getRequest() 
+    {
+        return self::$request;
+    }
+
+
 }

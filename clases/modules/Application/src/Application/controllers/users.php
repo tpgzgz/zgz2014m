@@ -1,6 +1,6 @@
 <?php
 namespace Application\controllers;
-
+use Application\Mappers\Users as UserMapper;
 
 include_once '../modules/Core/src/Forms/models/validateForm.php';
 include_once '../modules/Core/src/Forms/models/filterForm.php';
@@ -23,7 +23,7 @@ $validActions = array ('insert', 'update', 'delete', 'select');
 // if(!isset($_SESSION['email']))    
 //     header("Location: /home/select");
 
-class users
+class Users
 {
     
     public $layout = 'dashboard.phtml';
@@ -72,9 +72,8 @@ class users
         // Cargar el formulario con datos
         else
         {
-            $values = fetchUser($config, $request['params']['id']);
-            //$userData[0] = $request['params']['id'];
-            //$values = hydrateUser($userData);
+            $mapper = new UserMapper();
+            $user = $mapper->fetchUser();           
             // Cargar el formulario con datos
             include('../modules/Application/src/Application/views/users/update.phtml');
         }
@@ -106,21 +105,15 @@ class users
     
     public function select()
     {
-        $mapper = new Application\Mappers\Users();
+        $mapper = new UserMapper();
         $users = $mapper->fetchAllUsers();
         
         echo "<pre>";
         print_r($users);
-        echo "</pre>";
-        die;
+        echo"</pre>";
         
-        
-        
-        $data = fetchAllUser(\Core\Application\Application::getConfig());
         include ("../modules/Application/src/Application/views/users/select.phtml");
-    }
-    
-    
+    } 
 }
 
 

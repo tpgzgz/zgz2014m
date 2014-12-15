@@ -1,39 +1,40 @@
 <?php
 namespace Core\Adapters;
+use Core\Application\Application;
 
-class Txt implements AdapterInterface, TxtInterface
+Class Txt implements AdapterInterface, TxtInterface
 {
-    private $link;
-    protected $file;
+    private $filename;
     
-    
-    /**
-     * @return the $file
-     */
-    public function getTable()
+    public function __construct() {
+        $config = Application::getConfig();
+        $this->setFilename($_SERVER['DOCUMENT_ROOT']."/".$config['filename']);
+    }
+
+    public function setFilename($filename) 
     {
-    	return $this->file;
+        $this->filename = $filename;
     }
     
-    /**
-     * @param field_type $file
-     */
-    public function setTable($table)
+    public function getFilename() 
     {
-    	$this->file = $file;
+        return $this->filename;
     }
-        
+    
     public function fetchAll()
     {
-        
+        $users = file_get_contents($this->filename);
+        $users = explode("\n", $users);
+        return $users;                 
     }
     
-    
-    public function fetch($id)
+    public function fetch($id) 
+
     {
         
     }
     
+
 	public function delete($id)
 	{
 		
@@ -62,3 +63,4 @@ class Txt implements AdapterInterface, TxtInterface
 	}
     
 }
+

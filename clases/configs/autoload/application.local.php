@@ -7,5 +7,6 @@ $config = array(
 	    'database'=>'usuarios'
     ),
     'repository'=>'db',
-    'adapter'=>'\Core\Adapters\Mysql' 
+    'adapter'=>'\Core\Adapters\Mysql',
+    'filename'=> 'usuarios.txt'
 );
