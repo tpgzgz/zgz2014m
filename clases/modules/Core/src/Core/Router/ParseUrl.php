@@ -1,39 +1,33 @@
 <?php
 namespace Core\Router;
 
+use Core\Application\Application;
 class parseURL
 {
 
 
-    const DEFAULT_CONTROLLER = 'home';
-    const DEFAULT_ACTION = 'select';
-
+    //const DEFAULT_CONTROLLER = 'home';
+    //const DEFAULT_ACTION = 'select';
     
     /* Esta funcion devuelve un array con el controlador, la accion y los parametros
      segun la url. Dependiendo del controlador introducido en la url, se incluye un archivo
      u otro de los controllers
      */
-    public function parseURL()
+    public static function parseURL()
     {   
-        // Elimina las barras del principio y del final de la url
         $url = trim($_SERVER['REQUEST_URI'], '/');
-        // Divide el string url por las barras y lo mete en un array
-        // si hay mas de tres partes, estas las metera en la tercera clave del array
         $parts = explode('/', $url, 3);
     
-        // Si la url solo consta del dominio se utiliza el controlador y la accion por defecto
-        // en este caso el controlador user y la accion select
         if (empty($parts[0])) {
-            $controller = DEFAULT_CONTROLLER;
-            $action = DEFAULT_ACTION;
-            $params = [];
-            
-            
+            $controller = Application::getConfig()['default_controller'];
+            $action = Application::getConfig()['default_action'];
+            $params = [];            
         } else {
             $controller = $parts[0];
             // Si hay algo en la url ademas del dominio se llama al archivo 
             // pasado en el primer valor del array que corresponde con el controlador
-            $controller_src = $_SERVER['DOCUMENT_ROOT'] . "/../modules/Application/src/Application/controllers/$controller.php";
+            $controller_src = $_SERVER['DOCUMENT_ROOT'] 
+                    . "/../modules/Application/src/Application/controllers/$controller.php";
             
             if (file_exists($controller_src)) {
                 // Si en el array hay un valor en la segunda clave, se asigna a la variable
@@ -76,7 +70,7 @@ class parseURL
             }
         }
         
-        
+        // Retorna un Request
         return [
           'controller' => $controller,
           'action' => $action,

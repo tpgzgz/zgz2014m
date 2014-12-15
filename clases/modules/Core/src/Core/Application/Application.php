@@ -11,8 +11,8 @@ class Application
         include_once '../modules/Core/src/Router/models/parseUrl.php';
         include_once '../modules/Core/src/Module/models/moduleManager.php';
             
-        self::$request = parseURL($_SERVER['REQUEST_URI']);
         self::$config = moduleManager($config);
+        self::$request = \Core\Router\ParseURL::parseURL();
     }
     
     
@@ -27,7 +27,8 @@ class Application
         $controllerFile ='../modules/Application/src/Application/controllers/'.
                     self::$request['controller'].'.php';
 //         echo $controllerFile;
-//         include_once $controllerFile;       
+//         include_once $controllerFile;
+        //echo $controllerFile;       
         
         ob_start();
             $controllerName = "Application\\controllers\\".self::$request['controller'];

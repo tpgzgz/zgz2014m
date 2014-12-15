@@ -8,5 +8,7 @@ $config = array(
     ),
     'repository'=>'db',
     'adapter'=>'\Core\Adapters\Mysql',
-    'filename'=> 'usuarios.txt'
+    'filename'=> 'usuarios.txt',
+    'default_controller' => 'home',
+    'default_action' => 'select'
 );

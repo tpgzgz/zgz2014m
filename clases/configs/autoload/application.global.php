@@ -8,5 +8,7 @@ $config = array(
         'database'=>'cruddb_db'
     ),
     'repository'=>'db|txt|gd',
-    'layout'=>'dashboard'
+    'layout'=>'dashboard',
+    'default_controller',
+    'default_action'
 );
